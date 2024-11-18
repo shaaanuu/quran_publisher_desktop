@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:drift/drift.dart';
-import 'package:quran_publisher_desktop/database/db_tables.dart';
+
+import 'db_tables.dart';
 
 part 'app_database.g.dart';
 
@@ -65,8 +64,6 @@ class AppDatabase extends _$AppDatabase {
         (surahEnd == surahStart && ayatEnd < ayatStart)) {
       throw ArgumentError('End range cannot be before start range');
     }
-
-    log('getManuscriptString the argument surahStart: $surahStart, ayatStart: $ayatStart, surahEnd: $surahEnd, ayatEnd: $ayatEnd');
 
     // Query using Drift
     final rows = await (select(hafsWordItems)

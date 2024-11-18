@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:quran_publisher_desktop/database/mydb.dart';
-import 'package:quran_publisher_desktop/services/runtime_font_loader.dart';
-import 'package:quran_publisher_desktop/views/home.dart';
+
+import 'database/mydb.dart';
+import 'services/runtime_font_loader.dart';
+import 'views/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

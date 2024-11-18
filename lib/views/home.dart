@@ -2,9 +2,10 @@ import 'package:bidi/bidi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:quran_publisher_desktop/database/app_database.dart';
-import 'package:quran_publisher_desktop/database/mydb.dart';
 import 'package:toastification/toastification.dart';
+
+import '../database/app_database.dart';
+import '../database/mydb.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
