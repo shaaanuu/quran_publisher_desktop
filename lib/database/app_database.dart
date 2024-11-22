@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../model/manuscript_string.dart';
 import 'db_tables.dart';
 
 part 'app_database.g.dart';
@@ -127,11 +128,4 @@ class AppDatabase extends _$AppDatabase {
 
     return result.values.toList();
   }
-}
-
-class ManuscriptString {
-  String text;
-  String fontName;
-
-  ManuscriptString({required this.text, required this.fontName});
 }
