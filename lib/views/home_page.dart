@@ -9,6 +9,7 @@ import 'package:toastification/toastification.dart';
 import '../database/app_database.dart';
 import '../database/mydb.dart';
 import '../model/manuscript_string.dart';
+import 'components/preview_control_card.dart';
 
 enum TajwidOptions {
   noTajwid('No Tajwid'),
@@ -16,6 +17,14 @@ enum TajwidOptions {
 
   final String label;
   const TajwidOptions(this.label);
+}
+
+enum PreviewType {
+  justText('Text'),
+  mushafPage('Mushaf Page');
+
+  final String label;
+  const PreviewType(this.label);
 }
 
 class HomePage extends StatefulWidget {
@@ -35,6 +44,11 @@ class _HomePageState extends State<HomePage> {
   int fromAyat = 1;
   int toSurah = 1;
   int toAyat = 7;
+
+  // TODO: Rethink about the use of font size, seems betters to use TextScaling.
+  // We may use this if we starte support RichText copy/paste
+  double _previewFontSize = 28;
+  double _previewSpacing = 1;
 
   @override
   void initState() {
@@ -79,8 +93,8 @@ class _HomePageState extends State<HomePage> {
                             applicationVersion: 'v${packageInfo.version}',
                           );
                         },
-                      child: Text('Quran Computer Publication',
-                          style: Theme.of(context).textTheme.titleLarge),
+                        child: Text('Quran Computer Publication',
+                            style: Theme.of(context).textTheme.titleLarge),
                       ),
                     ),
                     const Gap(24),
@@ -90,37 +104,45 @@ class _HomePageState extends State<HomePage> {
                         color: Theme.of(context).colorScheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const Text('Mushaf:'),
-                          const Gap(4),
-                          const Text(
-                            'Hafs',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 16),
-                          ),
-                          const Gap(24),
-                          const Text('Tajwid Option:'),
-                          const Gap(4),
-                          DropdownButton(
-                            items: const [
-                              DropdownMenuItem(
-                                value: TajwidOptions.noTajwid,
-                                child: Text('No Tajwid'),
+                          Text('Mushaf Settings',
+                              style: Theme.of(context).textTheme.titleMedium),
+                          const Gap(8),
+                          Row(
+                            children: [
+                              const Text('Mushaf:'),
+                              const Gap(4),
+                              const Text(
+                                'Hafs',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 16),
                               ),
-                              DropdownMenuItem(
-                                value: TajwidOptions.tajwidKdn,
-                                child: Text('With Tajwid (KDN)'),
-                              ),
+                              const Gap(24),
+                              const Text('Tajwid Option:'),
+                              const Gap(4),
+                              DropdownButton(
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: TajwidOptions.noTajwid,
+                                    child: Text('No Tajwid'),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: TajwidOptions.tajwidKdn,
+                                    child: Text('With Tajwid (KDN)'),
+                                  ),
+                                ],
+                                onChanged: (TajwidOptions? value) {
+                                  if (value == null) return;
+                                  setState(() {
+                                    _selectedTajwidOption = value;
+                                  });
+                                },
+                                value: _selectedTajwidOption,
+                              )
                             ],
-                            onChanged: (TajwidOptions? value) {
-                              if (value == null) return;
-                              setState(() {
-                                _selectedTajwidOption = value;
-                              });
-                            },
-                            value: _selectedTajwidOption,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -433,6 +455,19 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+                    const Gap(12),
+                    PreviewControlCard(
+                      onFontSizeChanged: (fontSize) {
+                        setState(() {
+                          _previewFontSize = fontSize;
+                        });
+                      },
+                      onSpacingChanged: (spacing) {
+                        setState(() {
+                          _previewSpacing = spacing;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -497,7 +532,7 @@ class _HomePageState extends State<HomePage> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Wrap(
                                             runSpacing: 8,
-                                            spacing: 2,
+                                            spacing: _previewSpacing,
                                             children: p.bidiText
                                                 .map(
                                                   (e) => InkWell(
@@ -511,11 +546,13 @@ class _HomePageState extends State<HomePage> {
                                                     },
                                                     child: Text(
                                                       String.fromCharCode(e),
-                                                      textScaler:
-                                                          const TextScaler
-                                                              .linear(2),
+                                                      // textScaler:
+                                                      //     const TextScaler
+                                                      //         .linear(2),
                                                       style: TextStyle(
                                                         fontFamily: fontFamily,
+                                                        fontSize:
+                                                            _previewFontSize,
                                                       ),
                                                     ),
                                                   ),
