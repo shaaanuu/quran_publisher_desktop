@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:toastification/toastification.dart';
 
 import '../database/app_database.dart';
@@ -69,8 +70,18 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () async {
+                          final packageInfo = await PackageInfo.fromPlatform();
+                          showAboutDialog(
+                            context: context,
+                            applicationName: 'Quran Computer Publication',
+                            applicationVersion: 'v${packageInfo.version}',
+                          );
+                        },
                       child: Text('Quran Computer Publication',
                           style: Theme.of(context).textTheme.titleLarge),
+                      ),
                     ),
                     const Gap(24),
                     Container(
