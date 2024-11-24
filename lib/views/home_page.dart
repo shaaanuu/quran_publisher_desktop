@@ -17,14 +17,14 @@ enum TajwidOptions {
   const TajwidOptions(this.label);
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   late Future<List<SurahItem>> _surahListFuture;
 
   TajwidOptions _selectedTajwidOption = TajwidOptions.tajwidKdn;
@@ -421,7 +421,7 @@ class _HomeState extends State<Home> {
                           )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -517,7 +517,7 @@ class _HomeState extends State<Home> {
                                   );
                                 },
                               ),
-                            )
+                            ),
                           ],
                         );
                       },

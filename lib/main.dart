@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'database/mydb.dart';
 import 'services/runtime_font_loader.dart';
-import 'views/home.dart';
+import 'views/home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: const HomePage(),
     );
   }
 }
