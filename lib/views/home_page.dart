@@ -91,6 +91,11 @@ class _HomePageState extends State<HomePage> {
                             context: context,
                             applicationName: 'Quran Computer Publication',
                             applicationVersion: 'v${packageInfo.version}',
+                            applicationIcon: Image.asset(
+                              'assets/logo/logo500x500.png',
+                              width: 300,
+                              height: 300,
+                            ),
                           );
                         },
                         child: Text('Quran Computer Publication',
