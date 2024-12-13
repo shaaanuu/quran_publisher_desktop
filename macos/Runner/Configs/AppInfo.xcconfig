@@ -5,7 +5,7 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = quran_publisher_desktop
+PRODUCT_NAME = Quran Publisher Desktop
 
 // The application's bundle identifier
 PRODUCT_BUNDLE_IDENTIFIER = com.iqfareez.quranPublisherDesktop
