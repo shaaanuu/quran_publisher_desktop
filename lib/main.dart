@@ -11,6 +11,9 @@ void main() {
 
   MyDb.instance.init();
 
+  _loadHafsOriginalFonts();
+  _loadHafsColouredFonts();
+
   runApp(const MyApp());
 }
 
