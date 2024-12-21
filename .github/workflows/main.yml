@@ -19,11 +19,13 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter build windows --release
+      - run: cd build/windows/x64/runner/Release
+      - run: zip -r windows.zip .
       - name: Upload Windows App to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build\windows\x64\runner\Release\quran_publisher_desktop.exe
+          file: build/windows/x64/runner/Release/windows.zip
           tag: v1.0-${{ github.run_number }}
           overwrite: true
           body: "It's beta"
