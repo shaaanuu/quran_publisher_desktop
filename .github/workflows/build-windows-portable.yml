@@ -1,0 +1,24 @@
+name: Build Windows Portable Executable on Demand
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_windows:
+    name: 🪟 Build Windows App
+    runs-on: windows-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - run: cd build/windows/x64/runner/Release/ && powershell Compress-Archive -Path * -DestinationPath windows-x64-portable.zip
+      - name: Upload Windows App to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/windows/x64/runner/Release/windows-x64-portable.zip
+
